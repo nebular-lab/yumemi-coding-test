@@ -1,16 +1,12 @@
-import Chart from './features/Chart';
-import CheckBoxes from './features/CheckBoxes';
-import DataTypeSelector from './features/DataTypeSelector';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ChartPage from './page/Chart';
 
 const App = () => {
-  // TODO ここでfetchする
+  const queryClient = new QueryClient();
   return (
-    <div>
-      <h1>ゆめみ コーディングテスト</h1>
-      <CheckBoxes />
-      <DataTypeSelector />
-      <Chart />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <ChartPage />
+    </QueryClientProvider>
   );
 };
 
