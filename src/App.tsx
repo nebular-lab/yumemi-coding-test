@@ -1,12 +1,11 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ChartPage from './page/Chart';
+import { AppProvider } from './providers/app';
 
 const App = () => {
-  const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
+    <AppProvider>
       <ChartPage />
-    </QueryClientProvider>
+    </AppProvider>
   );
 };
 
