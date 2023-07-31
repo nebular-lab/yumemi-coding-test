@@ -1,16 +1,11 @@
-import Chart from './features/Chart';
-import CheckBoxes from './features/CheckBoxes';
-import DataTypeSelector from './features/DataTypeSelector';
+import ChartPage from './page/Chart';
+import { AppProvider } from './providers/app';
 
 const App = () => {
-  // TODO ここでfetchする
   return (
-    <div>
-      <h1>ゆめみ コーディングテスト</h1>
-      <CheckBoxes />
-      <DataTypeSelector />
-      <Chart />
-    </div>
+    <AppProvider>
+      <ChartPage />
+    </AppProvider>
   );
 };
 
