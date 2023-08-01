@@ -17,7 +17,7 @@ const ChartPage = () => {
   return (
     <div>
       <h1>ゆめみ コーディングテスト</h1>
-      
+
       <CheckBoxes
         prefectures={prefectures ?? []}
         checkedPrefCodes={checkedPrefCodes}
