@@ -4,14 +4,14 @@ export type PopulationPerYear = {
   rate?: number
 }
 
-export type PopulationPerCategory = {
+export type PopulationPerLabel = {
   label: string
   data: PopulationPerYear[]
 }
 
 export type ResponseResult = {
   boundaryYear: number
-  data: PopulationPerCategory[]
+  data: PopulationPerLabel[]
 }
 
 export type PopulationApiResponse = {

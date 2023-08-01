@@ -9,9 +9,9 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
-import { PopulationPerCategory, Prefecture } from '../../type'
+import { PopulationPerLabel, Prefecture } from '../../type'
 import { FC } from 'react'
-import { getRondomRGB } from './getRondomRGB'
+import { getRandomRGB } from './getRandomRGB'
 
 ChartJS.register(
   CategoryScale,
@@ -22,50 +22,52 @@ ChartJS.register(
   Tooltip,
   Legend,
 )
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Line Chart',
-    },
-  },
-}
 
 type Props = {
-  checkedPrefectureDatas:
+  checkedPrefectures:
     | {
         prefecture: Prefecture
-        populationPerLabels: PopulationPerCategory[]
+        populationPerLabels: PopulationPerLabel[]
       }[]
     | undefined
 }
 const PopulationChart: FC<Props> = (props) => {
-  const { checkedPrefectureDatas } = props
+  const { checkedPrefectures } = props
 
-  const labels = checkedPrefectureDatas?.[0]?.populationPerLabels[0].data.map(
+  //Chartのx軸のラベルである年度を表す labels=[1980,1985,1990...]
+  const xAxisLabels = checkedPrefectures?.[0]?.populationPerLabels[0].data.map(
     (dataItem) => dataItem.year,
   )
-  const datasets = checkedPrefectureDatas?.map((checkedPrefectureData) => {
+  const datasets = checkedPrefectures?.map((checkedPrefectureData) => {
     const prefecture = checkedPrefectureData.prefecture
     const populationPerLabels = checkedPrefectureData.populationPerLabels
     const data = populationPerLabels[0].data.map((dataItem) => dataItem.value)
-    const borderColor = getRondomRGB(prefecture.prefCode)
+    const borderColor = getRandomRGB(prefecture.prefCode)
     return {
-      label: prefecture.prefName,
+      label: prefecture.prefName, //このラベルはChartの凡例のラベルである都道府県名を表す
       data: data,
       borderColor: borderColor,
     }
   })
-  if (!labels || !datasets) {
+  if (!xAxisLabels || !datasets) {
     return <p>都道府県を選択してください</p>
   }
+
   const data = {
-    labels: labels,
+    labels: xAxisLabels,
     datasets: datasets,
+  }
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: true,
+        text: '人口推移',
+      },
+    },
   }
 
   return <Line data={data} options={options} />
