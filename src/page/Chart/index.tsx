@@ -8,26 +8,16 @@ import { useCheckedPrefCodes } from './hooks/useCheckedPrefCodes'
 const ChartPage = () => {
   const { data, isLoading, error } = useQueryPrefecturePopulation()
   const { checkedPrefCodes, toggleCheckedPrefCodes } = useCheckedPrefCodes()
+  const prefectures = data?.map((dataItem) => dataItem.prefecture)
   return (
     <div>
       <h1>ゆめみ コーディングテスト</h1>
       {isLoading && <p>loading...</p>}
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        {data &&
-          data.map((item) => (
-            <div>
-              <input
-                type='checkbox'
-                checked={checkedPrefCodes.includes(item.prefecture.prefCode)}
-                onChange={() =>
-                  toggleCheckedPrefCodes(item.prefecture.prefCode)
-                }
-              />
-              <label>{item.prefecture.prefName}</label>
-            </div>
-          ))}
-      </div>
-      <CheckBoxes />
+      <CheckBoxes
+        prefectures={prefectures ?? []}
+        checkedPrefCodes={checkedPrefCodes}
+        toggleCheckedPrefCodes={toggleCheckedPrefCodes}
+      />
       <DataTypeSelector />
       <Chart />
     </div>
