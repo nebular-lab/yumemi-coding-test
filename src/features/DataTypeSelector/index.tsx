@@ -1,4 +1,4 @@
 const DataTypeSelector = () => {
-  return <div>DataTypeSelector</div>;
-};
-export default DataTypeSelector;
+  return <div>DataTypeSelector</div>
+}
+export default DataTypeSelector

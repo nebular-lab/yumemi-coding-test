@@ -1,12 +1,12 @@
-import ChartPage from './page/Chart';
-import { AppProvider } from './providers/app';
+import ChartPage from './page/Chart'
+import { AppProvider } from './providers/app'
 
 const App = () => {
   return (
     <AppProvider>
       <ChartPage />
     </AppProvider>
-  );
-};
+  )
+}
 
-export default App;
+export default App
