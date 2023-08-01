@@ -24,15 +24,15 @@ ChartJS.register(
 )
 
 type Props = {
-  checkedPrefectures:
-    | {
-        prefecture: Prefecture
-        populationPerLabels: PopulationPerLabel[]
-      }[]
-    | undefined
+  checkedPrefectures: {
+    prefecture: Prefecture
+    populationPerLabels: PopulationPerLabel[]
+  }[]
+  labels: string[]
+  selectedLabelIndex: number
 }
 const PopulationChart: FC<Props> = (props) => {
-  const { checkedPrefectures } = props
+  const { checkedPrefectures, labels, selectedLabelIndex } = props
 
   //Chartのx軸のラベルである年度を表す labels=[1980,1985,1990...]
   const xAxisLabels = checkedPrefectures?.[0]?.populationPerLabels[0].data.map(
@@ -41,7 +41,9 @@ const PopulationChart: FC<Props> = (props) => {
   const datasets = checkedPrefectures?.map((checkedPrefectureData) => {
     const prefecture = checkedPrefectureData.prefecture
     const populationPerLabels = checkedPrefectureData.populationPerLabels
-    const data = populationPerLabels[0].data.map((dataItem) => dataItem.value)
+    const data = populationPerLabels[selectedLabelIndex].data.map(
+      (dataItem) => dataItem.value,
+    )
     const borderColor = getRandomRGB(prefecture.prefCode)
     return {
       label: prefecture.prefName, //このラベルはChartの凡例のラベルである都道府県名を表す
@@ -65,7 +67,7 @@ const PopulationChart: FC<Props> = (props) => {
       },
       title: {
         display: true,
-        text: '人口推移',
+        text: labels[selectedLabelIndex],
       },
     },
   }
