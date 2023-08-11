@@ -1,16 +1,19 @@
 import { useQuery } from '@tanstack/react-query'
 import { axios } from '../../../lib/axios'
-import { PopulationApiResponse, PrefectureApiResponse } from '../../../type'
+import {
+  PopulationDataApiResponse,
+  PrefectureApiResponse,
+} from '../../../types'
 
 export const useQueryPrefecturePopulation = () => {
   const fetchPrefecturePopulation = async () => {
     const { data: PrefectureResponseData } =
       await axios.get<PrefectureApiResponse>('/prefectures')
     const prefectures = PrefectureResponseData.result
-    const population = await Promise.all(
+    const populations = await Promise.all(
       prefectures.map(async (prefecture) => {
         const { data: populationResponseData } =
-          await axios.get<PopulationApiResponse>(
+          await axios.get<PopulationDataApiResponse>(
             '/population/composition/perYear',
             {
               params: {
@@ -25,12 +28,12 @@ export const useQueryPrefecturePopulation = () => {
         }
       }),
     )
-    const labels = population[0].populationPerLabels.map(
+    const labels = populations[0].populationPerLabels.map(
       (populationPerLabel) => {
         return populationPerLabel.label
       },
     )
-    return { population, labels }
+    return { populations, labels }
   }
   return useQuery({
     queryKey: ['prefecturePopulation'],

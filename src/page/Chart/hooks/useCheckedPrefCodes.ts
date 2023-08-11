@@ -6,9 +6,8 @@ export const useCheckedPrefCodes = () => {
     if (checkedPrefCodes.includes(prefCode)) {
       setCheckedPrefCodes(checkedPrefCodes.filter((code) => code !== prefCode))
     } else {
-      setCheckedPrefCodes([...checkedPrefCodes, prefCode])
+      setCheckedPrefCodes([...checkedPrefCodes, prefCode].sort((a, b) => a - b)) //昇順
     }
   }
-  // TODO ここでuseCallbackを使う
   return { checkedPrefCodes, toggleCheckedPrefCodes }
 }

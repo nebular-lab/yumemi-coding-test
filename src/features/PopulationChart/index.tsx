@@ -9,9 +9,12 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
-import { PopulationPerLabel, Prefecture } from '../../type'
+import {
+  LabeledPopulationData,
+  Prefecture,
+} from '../../types'
 import { FC } from 'react'
-import { getRandomRGB } from './getRandomRGB'
+import { generateRGBFromSeed } from './lib/generateRGBFromSeed'
 
 ChartJS.register(
   CategoryScale,
@@ -26,7 +29,7 @@ ChartJS.register(
 type Props = {
   checkedPrefectures: {
     prefecture: Prefecture
-    populationPerLabels: PopulationPerLabel[]
+    populationPerLabels: LabeledPopulationData[]
   }[]
   labels: string[]
   selectedLabelIndex: number
@@ -44,7 +47,7 @@ const PopulationChart: FC<Props> = (props) => {
     const data = populationPerLabels[selectedLabelIndex].data.map(
       (dataItem) => dataItem.value,
     )
-    const borderColor = getRandomRGB(prefecture.prefCode)
+    const borderColor = generateRGBFromSeed(prefecture.prefCode)
     return {
       label: prefecture.prefName, //このラベルはChartの凡例のラベルである都道府県名を表す
       data: data,

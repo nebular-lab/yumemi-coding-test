@@ -14,9 +14,9 @@ const ChartPage = () => {
   if (isLoading) return <div>ロード中</div>
   if (!data) return <div>データがありません</div>
 
-  const allPrefecture = data.population.map((dataItem) => dataItem.prefecture)
-  const checkedPrefectures = data.population.filter((dataItem) =>
-    checkedPrefCodes.includes(dataItem.prefecture.prefCode),
+  const allPrefecture = data.populations.map((population) => population.prefecture)
+  const checkedPrefectures = data.populations.filter((population) =>
+    checkedPrefCodes.includes(population.prefecture.prefCode),
   )
 
   return (

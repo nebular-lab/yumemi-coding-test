@@ -12,7 +12,7 @@ const LabelSelectRadioButton: FC<Props> = (props) => {
   return (
     <div>
       {labels.map((label, index) => (
-        <label key={index}>
+        <label key={label}>
           <input
             type='radio'
             value={label}

@@ -1,6 +1,5 @@
 import { FC } from 'react'
-import { Prefecture } from '../../type'
-import { useCheckedPrefCodes } from '../../page/Chart/hooks/useCheckedPrefCodes'
+import { Prefecture } from '../../types'
 
 type Props = {
   prefectures: Prefecture[]
@@ -14,7 +13,7 @@ const CheckBoxes: FC<Props> = (props) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       {prefectures.map((prefecture) => (
-        <div>
+        <div key={prefecture.prefCode}>
           <input
             type='checkbox'
             checked={checkedPrefCodes.includes(prefecture.prefCode)}

@@ -1,23 +1,22 @@
-export type PopulationPerYear = {
+export type AnnualPopulationData = {
   year: number
   value: number
   rate?: number
 }
 
-export type PopulationPerLabel = {
+export type LabeledPopulationData = {
   label: string
-  data: PopulationPerYear[]
+  data: AnnualPopulationData[]
 }
 
-export type ResponseResult = {
-  boundaryYear: number
-  data: PopulationPerLabel[]
-}
-
-export type PopulationApiResponse = {
+export type PopulationDataApiResponse = {
   message: null | string
-  result: ResponseResult
+  result: {
+    boundaryYear: number
+    data: LabeledPopulationData[]
+  }
 }
+
 
 export type Prefecture = {
   prefCode: number
