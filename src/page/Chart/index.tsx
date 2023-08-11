@@ -1,20 +1,28 @@
 import PopulationChart from '../../features/PopulationChart'
 import CheckBoxes from '../../features/CheckBoxes'
 import { useQueryPrefecturePopulation } from './api/getPrefecture'
-import { useCheckedPrefCodes } from './hooks/useCheckedPrefCodes'
 import LabelSelectRadioButton from '../../features/LabelSelectRadioButton'
-import { useSelectedLabelIndex } from './hooks/useSelectedLabelIndex'
+import { useState } from 'react'
 
 const ChartPage = () => {
   const { data, isLoading } = useQueryPrefecturePopulation()
 
-  const { checkedPrefCodes, toggleCheckedPrefCodes } = useCheckedPrefCodes()
-  const { selectedLabelIndex, setSelectedLabelIndex } = useSelectedLabelIndex()
-
+  const [checkedPrefCodes, setCheckPrefCode] = useState<number[]>([])
+  const [selectedLabelIndex, setSelectedLabelIndex] = useState<number>(0)
+  
+  const toggleCheckedPrefCodes = (prefCode: number) => {
+    if (checkedPrefCodes.includes(prefCode)) {
+      setCheckPrefCode(checkedPrefCodes.filter((code) => code !== prefCode))
+    } else {
+      setCheckPrefCode([...checkedPrefCodes, prefCode])
+    }
+  }
   if (isLoading) return <div>ロード中</div>
   if (!data) return <div>データがありません</div>
 
-  const allPrefecture = data.populations.map((population) => population.prefecture)
+  const allPrefecture = data.populations.map(
+    (population) => population.prefecture,
+  )
   const checkedPrefectures = data.populations.filter((population) =>
     checkedPrefCodes.includes(population.prefecture.prefCode),
   )
