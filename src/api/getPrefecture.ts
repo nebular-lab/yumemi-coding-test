@@ -1,16 +1,17 @@
 import { useQuery } from '@tanstack/react-query'
 import { axios } from '../lib/axios'
-import { PopulationDataApiResponse, PrefectureApiResponse } from '../types'
+import {
+  PopulationDataApiResponse,
+  PrefectureApiResponse,
+  PrefecturePopulation,
+} from '../types'
 
 export const useQueryPrefecturePopulation = () => {
   const fetchPrefecturePopulation = async () => {
     const { data: PrefectureResponseData } =
       await axios.get<PrefectureApiResponse>('/prefectures')
-    if (!PrefectureResponseData.result) {
-      throw new Error('Failed to fetch prefecture data')
-    }
     const prefectures = PrefectureResponseData.result
-    const populations = await Promise.all(
+    const prefecturePopulations: PrefecturePopulation[] = await Promise.all(
       prefectures.map(async (prefecture) => {
         const { data: populationResponseData } =
           await axios.get<PopulationDataApiResponse>(
@@ -22,21 +23,20 @@ export const useQueryPrefecturePopulation = () => {
               },
             },
           )
-        if (!populationResponseData) {
-          throw new Error('Failed to fetch population data')
-        }
         return {
-          prefecture,
-          populationPerLabels: populationResponseData.result.data,
+          prefecture: prefecture,
+          labeledPopulations: populationResponseData.result.data,
         }
       }),
     )
-    const labels = populations[0].populationPerLabels.map(
-      (populationPerLabel) => {
-        return populationPerLabel.label
+    // ラベルを取得したい.
+    // 1番目以降は同じラベルが入っているので、0番目のデータから取得する
+    const labels = prefecturePopulations[0].labeledPopulations.map(
+      (LabeledPopulation) => {
+        return LabeledPopulation.label
       },
     )
-    return { populations, labels }
+    return { prefecturePopulations, labels }
   }
   return useQuery({
     queryKey: ['prefecturePopulation'],

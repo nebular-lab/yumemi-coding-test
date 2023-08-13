@@ -4,7 +4,7 @@ export type AnnualPopulationData = {
   rate?: number
 }
 
-export type LabeledPopulationData = {
+export type LabeledPopulation = {
   label: string
   data: AnnualPopulationData[]
 }
@@ -13,10 +13,14 @@ export type PopulationDataApiResponse = {
   message: null | string
   result: {
     boundaryYear: number
-    data: LabeledPopulationData[]
+    data: LabeledPopulation[]
   }
 }
 
+export type PrefecturePopulation = {
+  prefecture: Prefecture
+  labeledPopulations: LabeledPopulation[]
+}
 
 export type Prefecture = {
   prefCode: number

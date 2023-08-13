@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Prefecture } from '../types'
+import { Prefecture } from '../../types'
 
 type Props = {
   prefectures: Prefecture[]
