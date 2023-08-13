@@ -6,12 +6,15 @@ export const useQueryPrefecturePopulation = () => {
   const fetchPrefecturePopulation = async () => {
     const { data: PrefectureResponseData } =
       await axios.get<PrefectureApiResponse>('/prefectures')
+    if (!PrefectureResponseData.result) {
+      throw new Error('Failed to fetch prefecture data')
+    }
     const prefectures = PrefectureResponseData.result
     const populations = await Promise.all(
       prefectures.map(async (prefecture) => {
         const { data: populationResponseData } =
           await axios.get<PopulationDataApiResponse>(
-            '/population/composition/perYearaaa',
+            '/population/composition/perYear',
             {
               params: {
                 prefCode: prefecture.prefCode,
@@ -19,6 +22,9 @@ export const useQueryPrefecturePopulation = () => {
               },
             },
           )
+        if (!populationResponseData) {
+          throw new Error('Failed to fetch population data')
+        }
         return {
           prefecture,
           populationPerLabels: populationResponseData.result.data,
@@ -35,7 +41,7 @@ export const useQueryPrefecturePopulation = () => {
   return useQuery({
     queryKey: ['prefecturePopulation'],
     queryFn: fetchPrefecturePopulation,
-    
+
     staleTime: Infinity,
     suspense: true,
   })
