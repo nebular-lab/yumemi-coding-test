@@ -6,7 +6,13 @@ type Props = {
 }
 
 export const AppProvider = ({ children }: Props) => {
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        suspense: true,
+      },
+    },
+  })
   return (
     <QueryClientProvider client={queryClient}>
       {children}

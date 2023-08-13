@@ -1,9 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { axios } from '../../../lib/axios'
-import {
-  PopulationDataApiResponse,
-  PrefectureApiResponse,
-} from '../../../types'
+import { axios } from '../lib/axios'
+import { PopulationDataApiResponse, PrefectureApiResponse } from '../types'
 
 export const useQueryPrefecturePopulation = () => {
   const fetchPrefecturePopulation = async () => {
@@ -14,7 +11,7 @@ export const useQueryPrefecturePopulation = () => {
       prefectures.map(async (prefecture) => {
         const { data: populationResponseData } =
           await axios.get<PopulationDataApiResponse>(
-            '/population/composition/perYear',
+            '/population/composition/perYearaaa',
             {
               params: {
                 prefCode: prefecture.prefCode,
@@ -38,6 +35,8 @@ export const useQueryPrefecturePopulation = () => {
   return useQuery({
     queryKey: ['prefecturePopulation'],
     queryFn: fetchPrefecturePopulation,
+    
     staleTime: Infinity,
+    suspense: true,
   })
 }

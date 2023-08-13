@@ -9,12 +9,9 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
-import {
-  LabeledPopulationData,
-  Prefecture,
-} from '../../types'
+import { LabeledPopulationData, Prefecture } from '../types'
 import { FC } from 'react'
-import { generateRGBFromSeed } from './lib/generateRGBFromSeed'
+import { generateRGBFromSeed } from '../lib/generateRGBFromSeed'
 
 ChartJS.register(
   CategoryScale,
