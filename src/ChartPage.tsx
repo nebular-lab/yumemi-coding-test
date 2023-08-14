@@ -1,6 +1,6 @@
 import PopulationChart from './components/Chart'
 import CheckBoxes from './components/CheckedBoxes'
-import { useQueryPrefecturePopulation } from './api/getPrefecture'
+import { useQueryPrefecturePopulation } from './api/getPrefecturePopulation'
 import LabelSelectRadioButton from './components/LabelSelectRadioButton'
 import { useState } from 'react'
 

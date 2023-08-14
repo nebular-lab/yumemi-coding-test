@@ -51,7 +51,6 @@ export const useQueryPrefecturePopulation = () => {
   return useQuery({
     queryKey: ['prefecturePopulation'],
     queryFn: fetchPrefecturePopulation,
-
     staleTime: Infinity,
     suspense: true,
   })
