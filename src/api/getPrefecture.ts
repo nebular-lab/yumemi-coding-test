@@ -4,7 +4,7 @@ import { axios } from '../lib/axios'
 export const useQueryPrefecturePopulation = () => {
   const fetchPrefecturePopulation = async () => {
     const { data: PrefectureResponseData } =
-      await axios.get<PrefectureApiResponse>('/prefecture')
+      await axios.get<PrefectureApiResponse>('/prefectures')
     const prefectures = PrefectureResponseData.result.map(
       (prefecture) => prefecture.prefName,
     )
