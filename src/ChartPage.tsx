@@ -24,30 +24,25 @@ const ChartPage = () => {
     }
   }
 
-  const allPrefectures = data.prefecturePopulations.map(
-    (prefecturePopulation) => prefecturePopulation.prefecture,
-  )
-  const checkedPrefectures = data.prefecturePopulations.filter(
-    (prefecturePopulation) =>
-      checkedPrefCodes.includes(prefecturePopulation.prefecture.prefCode),
-  )
-
   return (
     <div>
       <CheckBoxes
-        prefectures={allPrefectures}
+        prefectures={data.prefectures}
         checkedPrefCodes={checkedPrefCodes}
         toggleCheckedPrefCodes={toggleCheckedPrefCodes}
       />
       <LabelSelectRadioButton
-        labels={data.labels}
+        labels={data.populationTypeLabels}
         selectedLabelIndex={selectedLabelIndex}
         setSelectedLabelIndex={setSelectedLabelIndex}
       />
       <PopulationChart
-        checkedPrefectures={checkedPrefectures}
-        labels={data.labels}
+        checkedPrefCodes={checkedPrefCodes}
+        populationTypeLabels={data.populationTypeLabels}
         selectedLabelIndex={selectedLabelIndex}
+        populations={data.populations}
+        years={data.years}
+        prefectures={data.prefectures}
       />
     </div>
   )

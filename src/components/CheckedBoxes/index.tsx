@@ -1,8 +1,7 @@
 import { FC } from 'react'
-import { Prefecture } from '../../types'
 
 type Props = {
-  prefectures: Prefecture[]
+  prefectures: string[]
   checkedPrefCodes: number[]
   toggleCheckedPrefCodes: (prefCode: number) => void
 }
@@ -12,14 +11,14 @@ const CheckBoxes: FC<Props> = (props) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
-      {prefectures.map((prefecture) => (
-        <div key={prefecture.prefCode}>
+      {prefectures.map((prefecture, index) => (
+        <div key={prefecture}>
           <input
             type='checkbox'
-            checked={checkedPrefCodes.includes(prefecture.prefCode)}
-            onChange={() => toggleCheckedPrefCodes(prefecture.prefCode)}
+            checked={checkedPrefCodes.includes(index + 1)}
+            onChange={() => toggleCheckedPrefCodes(index + 1)}
           />
-          <label>{prefecture.prefName}</label>
+          <label>{prefecture}</label>
         </div>
       ))}
     </div>

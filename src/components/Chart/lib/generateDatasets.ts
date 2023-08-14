@@ -1,34 +1,33 @@
-import { PrefecturePopulation } from '../../../types'
-
 export const generateGraphData = (
-  checkedPrefectures: PrefecturePopulation[],
+  checkedPrefCodes: number[],
   selectedLabelIndex: number,
+  years: number[],
+  populations: number[][][],
+  prefectures: string[],
 ) => {
   return {
-    labels: generateLabels(checkedPrefectures),
-    datasets: generateDatasets(checkedPrefectures, selectedLabelIndex),
+    labels: years,
+    datasets: generateDatasets(
+      checkedPrefCodes,
+      selectedLabelIndex,
+      populations,
+      prefectures,
+    ),
   }
 }
 
-const generateLabels = (checkedPrefectures: PrefecturePopulation[]) => {
-  return checkedPrefectures[0].labeledPopulations[0].data.map(
-    (dataItem) => dataItem.year,
-  )
-}
-
 const generateDatasets = (
-  checkedPrefectures: PrefecturePopulation[],
+  checkedPrefCodes: number[],
   selectedLabelIndex: number,
+  populations: number[][][],
+  prefectures: string[],
 ) => {
-  return checkedPrefectures.map((checkedPrefectureData) => {
-    const prefecture = checkedPrefectureData.prefecture
-    const populationPerLabels = checkedPrefectureData.labeledPopulations
-    const data = populationPerLabels[selectedLabelIndex].data.map(
-      (dataItem) => dataItem.value,
-    )
-    const borderColor = generateRGBFromSeed(prefecture.prefCode)
+  return checkedPrefCodes.map((checkedPrefCode) => {
+    const checkedPrefecture = prefectures[checkedPrefCode - 1]
+    const data = populations[checkedPrefCode - 1][selectedLabelIndex]
+    const borderColor = generateRGBFromSeed(checkedPrefCode)
     return {
-      label: prefecture.prefName, // このラベルはChartの凡例のラベルである都道府県名を表す
+      label: checkedPrefecture,
       data: data,
       borderColor: borderColor,
     }

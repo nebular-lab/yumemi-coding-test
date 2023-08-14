@@ -9,7 +9,6 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
-import { LabeledPopulation, Prefecture } from '../../types'
 import { FC } from 'react'
 import { generateGraphData } from './lib/generateDatasets'
 
@@ -24,19 +23,32 @@ ChartJS.register(
 )
 
 type Props = {
-  checkedPrefectures: {
-    prefecture: Prefecture
-    labeledPopulations: LabeledPopulation[]
-  }[]
-  labels: string[]
+  checkedPrefCodes: number[]
+  populationTypeLabels: string[]
   selectedLabelIndex: number
+  populations: number[][][]
+  years: number[]
+  prefectures: string[]
 }
 const PopulationChart: FC<Props> = (props) => {
-  const { checkedPrefectures, labels, selectedLabelIndex } = props
+  const {
+    checkedPrefCodes,
+    populationTypeLabels,
+    selectedLabelIndex,
+    populations,
+    years,
+    prefectures,
+  } = props
 
-  if (checkedPrefectures.length === 0) return <p>都道府県を選択してください</p>
+  if (checkedPrefCodes.length === 0) return <p>都道府県を選択してください</p>
 
-  const data = generateGraphData(checkedPrefectures, selectedLabelIndex)
+  const data = generateGraphData(
+    checkedPrefCodes,
+    selectedLabelIndex,
+    years,
+    populations,
+    prefectures,
+  )
   const options = {
     responsive: true,
     plugins: {
@@ -45,7 +57,7 @@ const PopulationChart: FC<Props> = (props) => {
       },
       title: {
         display: true,
-        text: labels[selectedLabelIndex],
+        text: populationTypeLabels[selectedLabelIndex],
       },
     },
   }
