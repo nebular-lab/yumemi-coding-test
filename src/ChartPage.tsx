@@ -40,7 +40,7 @@ const ChartPage = () => {
         checkedPrefCodes={checkedPrefCodes}
         populationTypeLabels={data.populationTypeLabels}
         selectedLabelIndex={selectedLabelIndex}
-        populations={data.populations}
+        populations={data.populationData}
         years={data.years}
         prefectures={data.prefectures}
       />

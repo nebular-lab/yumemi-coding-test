@@ -10,7 +10,8 @@ import {
   Legend,
 } from 'chart.js'
 import { FC } from 'react'
-import { generateGraphData } from './lib/generateDatasets'
+import { generateRGBFromSeed } from '../../utils/generateGraphData'
+import { PopulationData, Prefecture } from '../../types'
 
 ChartJS.register(
   CategoryScale,
@@ -26,9 +27,9 @@ type Props = {
   checkedPrefCodes: number[]
   populationTypeLabels: string[]
   selectedLabelIndex: number
-  populations: number[][][]
+  populations: PopulationData[]
   years: number[]
-  prefectures: string[]
+  prefectures: Prefecture[]
 }
 const PopulationChart: FC<Props> = (props) => {
   const {
@@ -42,13 +43,21 @@ const PopulationChart: FC<Props> = (props) => {
 
   if (checkedPrefCodes.length === 0) return <p>都道府県を選択してください</p>
 
-  const data = generateGraphData(
-    checkedPrefCodes,
-    selectedLabelIndex,
-    years,
-    populations,
-    prefectures,
-  )
+  const data = {
+    labels: years,
+    datasets: checkedPrefCodes.map((checkedPrefCode) => {
+      const checkedPrefectureName = prefectures[checkedPrefCode].prefName
+      const data = populations[checkedPrefCode][selectedLabelIndex].data.map(
+        (population) => population.value,
+      )
+      const borderColor = generateRGBFromSeed(checkedPrefCode)
+      return {
+        label: checkedPrefectureName,
+        data: data,
+        borderColor: borderColor,
+      }
+    }),
+  }
   const options = {
     responsive: true,
     plugins: {
