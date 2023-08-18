@@ -10,7 +10,7 @@ import {
   Legend,
 } from 'chart.js'
 import { FC } from 'react'
-import { generateRGBFromSeed } from '../../utils/generateGraphData'
+import { generateRGBFromSeed } from '../../utils/generateRGBFromSeed'
 import { PopulationData, Prefecture } from '../../types'
 
 ChartJS.register(
