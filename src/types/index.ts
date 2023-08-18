@@ -4,8 +4,9 @@ const PrefectureSchema = z.object({
   prefCode: z.number(),
   prefName: z.string(),
 })
-export const PrefectureArraySchema = z.array(PrefectureSchema)
 export type Prefecture = z.infer<typeof PrefectureSchema>
+
+export const PrefectureArraySchema = z.array(PrefectureSchema)
 
 export const PopulationDataSchema = z.array(
   z.object({
