@@ -31,9 +31,8 @@ export const useQueryPrefecturePopulation = () => {
     const firstDataSet = populationData[0]
 
     const populationTypeLabels = firstDataSet.map(({ label }) => label)
-    const years = firstDataSet[0].data.map(({ year }) => year)
 
-    return { prefectures, populationTypeLabels, years, populationData }
+    return { prefectures, populationTypeLabels, populationData }
   }
 
   return useQuery({

@@ -28,7 +28,6 @@ type Props = {
   populationTypeLabels: string[]
   selectedLabelIndex: number
   populations: PopulationData[]
-  years: number[]
   prefectures: Prefecture[]
 }
 const PopulationChart: FC<Props> = (props) => {
@@ -37,14 +36,13 @@ const PopulationChart: FC<Props> = (props) => {
     populationTypeLabels,
     selectedLabelIndex,
     populations,
-    years,
     prefectures,
   } = props
 
   if (checkedPrefCodes.length === 0) return <p>都道府県を選択してください</p>
 
   const data = {
-    labels: years,
+    labels: populations[0][0].data.map((population) => population.year),
     datasets: checkedPrefCodes.map((checkedPrefCode) => {
       const checkedPrefectureName = prefectures[checkedPrefCode].prefName
       const data = populations[checkedPrefCode][selectedLabelIndex].data.map(
