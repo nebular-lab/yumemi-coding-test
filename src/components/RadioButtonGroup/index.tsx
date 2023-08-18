@@ -1,29 +1,50 @@
 import { FC } from 'react'
 
-type Props = {
+type RadioButtonGroupProps = {
   labels: string[]
   selectedLabelIndex: number
   setSelectedLabelIndex: (index: number) => void
 }
-
-const RadioButtonGroup: FC<Props> = (props) => {
+const RadioButtonGroup: FC<RadioButtonGroupProps> = (props) => {
   const { labels, selectedLabelIndex, setSelectedLabelIndex } = props
 
   return (
     <div>
       {labels.map((label, index) => (
-        <label key={label} htmlFor={label}>
-          <input
-            type='radio'
-            id={label}
-            value={label}
-            checked={selectedLabelIndex === index}
-            onChange={() => setSelectedLabelIndex(index)}
-          />
-          {label}
-        </label>
+        <RadioButton
+          key={index}
+          id={label}
+          value={label}
+          checked={index === selectedLabelIndex}
+          onChange={() => setSelectedLabelIndex(index)}
+        />
       ))}
     </div>
   )
 }
+
+type RadioButtonProps = {
+  id: string
+  value: string
+  checked: boolean
+  onChange: () => void
+}
+const RadioButton: FC<RadioButtonProps> = ({
+  id,
+  value,
+  checked,
+  onChange,
+}) => (
+  <label htmlFor={id}>
+    <input
+      type='radio'
+      id={id}
+      value={value}
+      checked={checked}
+      onChange={onChange}
+    />
+    {value}
+  </label>
+)
+
 export default RadioButtonGroup
