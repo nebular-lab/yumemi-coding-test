@@ -6,7 +6,7 @@ type Props = {
   setSelectedLabelIndex: (index: number) => void
 }
 
-const SelectButtonGroup: FC<Props> = (props) => {
+const RadioButtonGroup: FC<Props> = (props) => {
   const { labels, selectedLabelIndex, setSelectedLabelIndex } = props
 
   return (
@@ -26,4 +26,4 @@ const SelectButtonGroup: FC<Props> = (props) => {
     </div>
   )
 }
-export default SelectButtonGroup
+export default RadioButtonGroup
