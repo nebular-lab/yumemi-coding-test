@@ -1,5 +1,5 @@
 import PopulationChart from './components/Chart'
-import CheckBoxes from './components/CheckedBoxes'
+import CheckBoxes from './components/CheckBoxGroup'
 import { useQueryPrefecturePopulation } from './api/getPrefecturePopulation'
 import SelectButtonGroup from './components/SelectButtonGroup'
 import { useState } from 'react'

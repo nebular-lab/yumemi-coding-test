@@ -7,7 +7,7 @@ type Props = {
   toggleCheckedPrefCodes: (prefCode: number) => void
 }
 
-const CheckBoxes: FC<Props> = (props) => {
+const CheckBoxGroup: FC<Props> = (props) => {
   const { prefectures, checkedPrefCodes, toggleCheckedPrefCodes } = props
 
   return (
@@ -15,14 +15,15 @@ const CheckBoxes: FC<Props> = (props) => {
       {prefectures.map((prefecture, index) => (
         <div key={prefecture.prefCode}>
           <input
+            id={prefecture.prefName}
             type='checkbox'
             checked={checkedPrefCodes.includes(index + 1)}
             onChange={() => toggleCheckedPrefCodes(index + 1)}
           />
-          <label>{prefecture.prefName}</label>
+          <label htmlFor={prefecture.prefName}>{prefecture.prefName}</label>
         </div>
       ))}
     </div>
   )
 }
-export default CheckBoxes
+export default CheckBoxGroup
