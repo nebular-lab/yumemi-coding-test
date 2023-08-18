@@ -1,7 +1,7 @@
 import PopulationChart from './components/Chart'
 import CheckBoxes from './components/CheckedBoxes'
 import { useQueryPrefecturePopulation } from './api/getPrefecturePopulation'
-import LabelSelectRadioButton from './components/LabelSelectRadioButton'
+import SelectButtonGroup from './components/SelectButtonGroup'
 import { useState } from 'react'
 
 const ChartPage = () => {
@@ -31,7 +31,7 @@ const ChartPage = () => {
         checkedPrefCodes={checkedPrefCodes}
         toggleCheckedPrefCodes={toggleCheckedPrefCodes}
       />
-      <LabelSelectRadioButton
+      <SelectButtonGroup
         labels={data.populationTypeLabels}
         selectedLabelIndex={selectedLabelIndex}
         setSelectedLabelIndex={setSelectedLabelIndex}

@@ -6,15 +6,16 @@ type Props = {
   setSelectedLabelIndex: (index: number) => void
 }
 
-const LabelSelectRadioButton: FC<Props> = (props) => {
+const SelectButtonGroup: FC<Props> = (props) => {
   const { labels, selectedLabelIndex, setSelectedLabelIndex } = props
 
   return (
     <div>
       {labels.map((label, index) => (
-        <label key={label}>
+        <label key={label} htmlFor={label}>
           <input
             type='radio'
+            id={label}
             value={label}
             checked={selectedLabelIndex === index}
             onChange={() => setSelectedLabelIndex(index)}
@@ -25,4 +26,4 @@ const LabelSelectRadioButton: FC<Props> = (props) => {
     </div>
   )
 }
-export default LabelSelectRadioButton
+export default SelectButtonGroup
