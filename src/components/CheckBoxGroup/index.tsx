@@ -12,13 +12,13 @@ const CheckBoxGroup: FC<Props> = (props) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
-      {prefectures.map((prefecture, index) => (
+      {prefectures.map((prefecture) => (
         <div key={prefecture.prefCode}>
           <input
             id={prefecture.prefName}
             type='checkbox'
-            checked={checkedPrefCodes.includes(index + 1)}
-            onChange={() => toggleCheckedPrefCodes(index + 1)}
+            checked={checkedPrefCodes.includes(prefecture.prefCode)}
+            onChange={() => toggleCheckedPrefCodes(prefecture.prefCode)}
           />
           <label htmlFor={prefecture.prefName}>{prefecture.prefName}</label>
         </div>
