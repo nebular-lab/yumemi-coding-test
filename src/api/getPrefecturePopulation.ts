@@ -2,22 +2,19 @@ import { useQuery } from '@tanstack/react-query'
 import { axios } from '../lib/axios'
 import { PopulationDataSchema, PrefectureArraySchema } from '../types'
 
-const fetchPopulationDataForPrefecture = async (prefCode: number) => {
-  const { data: populationResponseData } = await axios.get(
-    '/population/composition/perYear',
-    {
-      params: {
-        prefCode,
-        cityCode: '-',
-      },
-    },
-  )
-  return PopulationDataSchema.parse(populationResponseData.result.data)
+const fetchPrefectures = async () => {
+  const { data } = await axios.get('/prefectures')
+  return PrefectureArraySchema.parse(data.result)
 }
 
-const fetchPrefectures = async () => {
-  const { data: prefectureResponseData } = await axios.get('/prefectures')
-  return PrefectureArraySchema.parse(prefectureResponseData.result)
+const fetchPopulationDataForPrefecture = async (prefCode: number) => {
+  const { data } = await axios.get('/population/composition/perYear', {
+    params: {
+      prefCode,
+      cityCode: '-',
+    },
+  })
+  return PopulationDataSchema.parse(data.result.data)
 }
 
 export const useQueryPrefecturePopulation = () => {
