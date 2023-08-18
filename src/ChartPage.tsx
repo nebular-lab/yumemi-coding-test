@@ -1,5 +1,5 @@
 import PopulationChart from './components/Chart'
-import CheckBoxes from './components/CheckBoxGroup'
+import CheckBoxGroup from './components/CheckBoxGroup'
 import { useQueryPrefecturePopulation } from './api/getPrefecturePopulation'
 import SelectButtonGroup from './components/SelectButtonGroup'
 import { useState } from 'react'
@@ -26,7 +26,7 @@ const ChartPage = () => {
 
   return (
     <div>
-      <CheckBoxes
+      <CheckBoxGroup
         prefectures={data.prefectures}
         checkedPrefCodes={checkedPrefCodes}
         toggleCheckedPrefCodes={toggleCheckedPrefCodes}
