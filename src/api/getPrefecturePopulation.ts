@@ -26,11 +26,8 @@ export const useQueryPrefecturePopulation = () => {
         fetchPopulationDataForPrefecture(prefCode),
       ),
     )
-
-    // Assuming populationData[0] exists
-    const firstDataSet = populationData[0]
-
-    const populationTypeLabels = firstDataSet.map(({ label }) => label)
+    // ['総人口', '年少人口', '生産年齢人口', '老年人口']
+    const populationTypeLabels = populationData[0].map(({ label }) => label)
 
     return { prefectures, populationTypeLabels, populationData }
   }

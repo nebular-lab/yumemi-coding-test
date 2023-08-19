@@ -13,6 +13,7 @@ const CheckBoxGroup: FC<CheckBoxGroupProps> = (props) => {
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       {prefectures.map((prefecture) => (
         <CheckBox
+          key={prefecture.prefCode}
           prefecture={prefecture}
           checkedPrefCodes={checkedPrefCodes}
           toggleCheckedPrefCodes={toggleCheckedPrefCodes}
@@ -30,7 +31,7 @@ type CheckBoxProps = {
 const CheckBox = (props: CheckBoxProps) => {
   const { prefecture, checkedPrefCodes, toggleCheckedPrefCodes } = props
   return (
-    <div key={prefecture.prefCode}>
+    <>
       <input
         id={prefecture.prefName}
         type='checkbox'
@@ -38,7 +39,7 @@ const CheckBox = (props: CheckBoxProps) => {
         onChange={() => toggleCheckedPrefCodes(prefecture.prefCode)}
       />
       <label htmlFor={prefecture.prefName}>{prefecture.prefName}</label>
-    </div>
+    </>
   )
 }
 
